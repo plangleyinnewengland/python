@@ -34,6 +34,14 @@ def main():
     Docs_Maintenance_Story_Points=pd.NamedAgg(
       column='Story Points',
       aggfunc=lambda x: x[df.loc[x.index, 'Labels'].astype(str).str.contains('Docs_Maintenance', na=False)].sum()
+    ),
+    Docs_Feature_Story_Points=pd.NamedAgg(
+      column='Story Points',
+      aggfunc=lambda x: x[df.loc[x.index, 'Labels'].astype(str).str.contains('Docs_Feature', na=False)].sum()
+    ),
+    Docs_RTTB_Story_Points=pd.NamedAgg(
+      column='Story Points',
+      aggfunc=lambda x: x[df.loc[x.index, 'Labels'].astype(str).str.contains('Docs_RTTB', na=False)].sum()
     )
   ).reset_index()
 
