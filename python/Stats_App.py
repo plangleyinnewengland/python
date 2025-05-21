@@ -18,7 +18,7 @@ def main():
   df = pd.read_excel(file_path)
 
   # Ensure required columns exist
-  required_cols = ['Issue Type', 'Status', 'Story Points', 'Program Increment']
+  required_cols = ['Issue Type', 'Status', 'Story Points', 'Program Increment', 'Labels']
   for col in required_cols:
     if col not in df.columns:
       print(f"Missing required column: {col}")
@@ -30,7 +30,11 @@ def main():
     Records_Without_Story_Points=pd.NamedAgg(
       column='Story Points', aggfunc=lambda x: x.isna().sum() + (x == 0).sum()
     ),
-    Records_without_story_points=pd.NamedAgg(column='Story Points', aggfunc='count')
+    Records_without_story_points=pd.NamedAgg(column='Story Points', aggfunc='count'),
+    Docs_Maintenance_Story_Points=pd.NamedAgg(
+      column='Story Points',
+      aggfunc=lambda x: x[df.loc[x.index, 'Labels'].astype(str).str.contains('Docs_Maintenance', na=False)].sum()
+    )
   ).reset_index()
 
   print(grouped)
