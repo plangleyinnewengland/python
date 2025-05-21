@@ -30,7 +30,7 @@ def main():
     Records_Without_Story_Points=pd.NamedAgg(
       column='Story Points', aggfunc=lambda x: x.isna().sum() + (x == 0).sum()
     ),
-    Total_Records=pd.NamedAgg(column='Story Points', aggfunc='count')
+    Records_without_story_points=pd.NamedAgg(column='Story Points', aggfunc='count')
   ).reset_index()
 
   print(grouped)
